@@ -59,7 +59,7 @@ jobs:
         draft: true
         prerelease: true
         files: |
-          build/CP_Editor-${{ steps.get_version.outputs.VERSION }}-x86_64.AppImage
+          build/cpeditor-${{ steps.get_version.outputs.VERSION }}-x86_64.AppImage
           cpeditor-full-source-${{ steps.get_version.outputs.VERSION }}.tar.gz
         name: CP Editor ${{ steps.get_version.outputs.VERSION }}
       env:
