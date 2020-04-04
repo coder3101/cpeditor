@@ -1,5 +1,7 @@
 ## UNRELEASED
 
+## 4.5.4 (Beta)
+
 ### Added
 
 - Show stderr of the checker when the verdict is AC. (#207)
