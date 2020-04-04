@@ -46,6 +46,7 @@ jobs:
         cp cpeditor.desktop default.desktop
         mv cpeditor-icon.png cpeditor-icon.png.png
         ./linuxdeployqt*.AppImage ./cpeditor -appimage -qmake=/opt/qt512/bin/qmake
+        mv CP_Editor-${{steps.get_version.outputs.VERSION }}-x86_64.AppImage cpeditor-${{ steps.get_version.outputs.VERSION }}-x86_64.AppImage
     
     - name: Package the complete Source
       run: |
