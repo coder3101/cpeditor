@@ -54,11 +54,11 @@ jobs:
           wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
           chmod a+x linuxdeployqt*.AppImage
           export VERSION=${{ steps.get_version.outputs.VERSION }}
-          cmake --install . --prefix appdir/usr
-          mkdir -p appdir/usr/share/metainfo
+          cmake --install . --prefix AppDir/usr
+          mkdir -p AppDir/usr/share/metainfo
           cp ../.ci/linux/cpeditor.appdata.xml appdir/usr/share/metainfo
 
-          ./linuxdeployqt*.AppImage appdir/usr/share/applications/cpeditor.desktop -appimage -qmake=/opt/qt514/bin/qmake
+          ./linuxdeployqt*.AppImage AppDir/usr/share/applications/cpeditor.desktop -appimage -qmake=/opt/qt514/bin/qmake
           mv CP_Editor-${{steps.get_version.outputs.VERSION }}-x86_64.AppImage cpeditor-${{ steps.get_version.outputs.VERSION }}-x86_64.AppImage
 
       - name: Package the complete Source
