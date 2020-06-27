@@ -56,7 +56,7 @@ jobs:
           export VERSION=${{ steps.get_version.outputs.VERSION }}
           cmake --install . --prefix AppDir/usr
           mkdir -p AppDir/usr/share/metainfo
-          cp ../.ci/linux/cpeditor.appdata.xml appdir/usr/share/metainfo
+          cp ../.ci/linux/cpeditor.appdata.xml AppDir/usr/share/metainfo
 
           ./linuxdeployqt*.AppImage AppDir/usr/share/applications/cpeditor.desktop -appimage -qmake=/opt/qt514/bin/qmake
           mv CP_Editor-${{steps.get_version.outputs.VERSION }}-x86_64.AppImage cpeditor-${{ steps.get_version.outputs.VERSION }}-x86_64.AppImage
