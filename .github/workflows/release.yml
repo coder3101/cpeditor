@@ -6,7 +6,7 @@ on: [push]
         #- "*"
 
 env:
-  QT_VERSION: 5.14.0
+  QT_VERSION: 5.14.2
 
 jobs:
   release:
@@ -51,7 +51,7 @@ jobs:
       - name: Install Qt on Ubuntu
         if: startsWith(matrix.config.os, 'ubuntu')
         run: |
-          sudo add-apt-repository ppa:beineri/opt-qt-5.14.0-xenial -y
+          sudo add-apt-repository ppa:beineri/opt-qt-5.14.2-xenial -y
           sudo apt-get update -qq
           sudo apt-get -y install qt514base libgl1-mesa-dev qt514svg qt514imageformats
           bash /opt/qt*/bin/qt*-env.sh
