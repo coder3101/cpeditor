@@ -1,9 +1,9 @@
 name: "Release"
 
-on:
-  push:
-    tags:
-      - "*"
+on: [push]
+        #  push:
+        #tags:
+        #- "*"
 
 env:
   QT_VERSION: 5.15.0
@@ -75,7 +75,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DPORTABLE_VERSION=${{ matrix.config.portable-option }}
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DPORTABLE_VERSION=${{ matrix.config.portable-option }} 
           cmake --build . --config Release -j2
 
       - name: Get the version
@@ -99,9 +99,11 @@ jobs:
           wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
           chmod a+x linuxdeployqt*.AppImage
           export VERSION=${{ steps.get_version.outputs.VERSION }}
-          cp ../.ci/linux/cpeditor.desktop . && cp ../.ci/linux/cpeditor-icon.png .
-          cp cpeditor.desktop default.desktop
-          ./linuxdeployqt*.AppImage ./cpeditor -appimage -qmake=/opt/qt515/bin/qmake
+          cmake --install . --prefix appdir/usr
+          mkdir -p appdir/usr/share/metainfo
+          cp ../.ci/linux/cpeditor.appdata.xml appdir/usr/share/metainfo
+
+          ./linuxdeployqt*.AppImage appdir/usr/share/applications/cpeditor.desktop -appimage -qmake=/opt/qt515/bin/qmake
           mv CP_Editor-${{steps.get_version.outputs.VERSION }}-x86_64.AppImage cpeditor-${{ steps.get_version.outputs.VERSION }}-linux-x86_64${{ matrix.config.portable-name }}.AppImage
 
       - name: Release AppImage

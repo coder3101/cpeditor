@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>cpeditor</id>
+	<metadata_license>GPL-3.0</metadata_license>
+	<project_license>GPL-3.0</project_license>
+	<name>CP Editor</name>
+	<summary>Editor for Competitive Programmers</summary>
+	<description>
+		<p>CP Editor is a Qt-based, lightweight and cross-platform code editor specially designed for competitive programming. It makes your competitive coding life easier  by automating many things for you.</p>
+	</description>
+	<launchable type="desktop-id">cpeditor.desktop</launchable>
+	<url type="homepage">https://cpeditor.org/</url>
+	<screenshots>
+		<screenshot type="default">
+			<image>https://cpeditor.org/img/banner/home-center-2.jpg</image>
+		</screenshot>
+	</screenshots>
+	<provides>
+		<id>cpeditor.desktop</id>
+	</provides>
+</component>
