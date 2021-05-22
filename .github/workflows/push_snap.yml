@@ -41,7 +41,7 @@ jobs:
 
       - uses: snapcore/action-build@v1
         with:
-          snapcraft-args: --enable-experimental-*
+          snapcraft-args: --enable-experimental-package-repositories 
 
       - uses: snapcore/action-publish@v1
         with:
