@@ -16,12 +16,6 @@ apps:
   cpeditor:
     common-id: cpeditor.desktop
     command: usr/bin/cpeditor
-    plugs:
-      - home
-      - opengl
-      - network
-      - network-bind
-      - pulseaudio
 
 parts:
   cpeditor:
