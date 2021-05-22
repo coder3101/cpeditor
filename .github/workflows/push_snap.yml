@@ -1,6 +1,6 @@
 name: "Update Snap"
 
-on: [pull]
+on: [pull_request]
   # push:
   #   branches:
   #     - master
