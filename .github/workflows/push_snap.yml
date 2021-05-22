@@ -41,11 +41,12 @@ jobs:
           cat snapcraft.yaml
 
       - uses: snapcore/action-build@v1
+        id: build
         with:
           snapcraft-args: --enable-experimental-package-repositories 
 
       - uses: snapcore/action-publish@v1
         with:
           store_login: ${{ secrets.STORE_LOGIN }}
-          snap: ${{ steps.snapcraft.outputs.snap }}
+          snap: ${{ steps.build.outputs.snap }}
           release: edge
