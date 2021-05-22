@@ -28,7 +28,7 @@ jobs:
         id: update-cmake-file
         run: |
           git fetch --tags
-          VERSION=$(git describe --long --tags --abbrev=8 | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
+          VERSION=$(git describe --long --tags --abbrev=8 | sed 's/-/./g' | cut -d '.' -f 1-4)
           echo ::set-output name=VERSION::$VERSION
           sed -i "s/project(cpeditor LANGUAGES CXX VERSION .*/project(cpeditor LANGUAGES CXX VERSION $VERSION)/g" CMakeLists.txt
           cat CMakeLists.txt
