@@ -1,15 +1,15 @@
 name: "Update Snap"
 
-on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - ".github/**"
-      - "!.github/workflows/push_aur.yml"
-      - "**.md"
-      - ".all-contributorsrc"
-      - ".gitignore"
+on: [pull]
+  # push:
+  #   branches:
+  #     - master
+  #   paths-ignore:
+  #     - ".github/**"
+  #     - "!.github/workflows/push_aur.yml"
+  #     - "**.md"
+  #     - ".all-contributorsrc"
+  #     - ".gitignore"
 
 jobs:
   snap:
@@ -23,20 +23,28 @@ jobs:
           ref: master
           fetch-depth: 0
 
-      - name: Update files
-        id: update-files
+      - name: Update CMake file
+        id: update-cmake-file
         run: |
           git fetch --tags
           VERSION=$(git describe --long --tags --abbrev=8 | sed 's/\([^-]*-g\)/r\1/;s/-/./g')
           echo ::set-output name=VERSION::$VERSION
-          cp dist/aur/git/PKGBUILD cpeditor-git
-          cp dist/aur/git/.SRCINFO cpeditor-git
-          sed -i "s/@PROJECT_VERSION@/$VERSION/g" cpeditor-git/PKGBUILD cpeditor-git/.SRCINFO
+          sed -i "s/project(cpeditor LANGUAGES CXX VERSION .*/project(cpeditor LANGUAGES CXX VERSION $VERSION)/g" CMakeLists.txt
+          cat CMakeLists.txt
 
-      - name: Publish to AUR
+      - name: Update Snapcraft
         run: |
-          cd cpeditor-git
-          git config --global user.email "ashar786khan@gmail.com"
-          git config --global user.name "coder3101"
-          git diff --quiet HEAD || git commit -am "Update from CI: ${{ steps.update-files.outputs.VERSION }}"
-          git push -u origin master
+          cp dist/snap/snapcraft.yaml snapcraft.yaml
+          sed -i "/source-/d" snapcraft.yaml
+          sed -i "s/source: https.*/source: \."/g snapcraft.yaml
+          cat snapcraft.yaml
+
+      - uses: snapcore/action-build@v1
+        with:
+          snapcraft-args: --enable-experimental-*
+
+      - uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.STORE_LOGIN }}
+          snap: ${{ steps.build.outputs.snap }}
+          release: edge
