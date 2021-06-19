@@ -30,7 +30,7 @@ jobs:
         run: |
           git fetch --tags
           SNAP_VERSION=$(git describe --long --tags --abbrev=8 | sed 's/-/./g' | cut -d '.' -f 1-4)
-          sed -i "/project(cpeditor LANGUAGES CXX VERSION .*/a set(SNAP_VERSION $SNAP_VERSION)" CMakeLists.txt
+          sed -i "s/@PROJECT_VERSION@/ $SNAP_VERSION/g" cmake/cpeditor.appdata.xml.in
 
       - name: Update Snapcraft
         run: |
@@ -40,8 +40,6 @@ jobs:
 
       - uses: snapcore/action-build@v1
         id: build
-        with:
-          snapcraft-args: --enable-experimental-package-repositories 
 
 #       - uses: snapcore/action-publish@v1
 #         with:
