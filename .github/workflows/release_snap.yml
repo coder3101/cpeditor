@@ -1,4 +1,4 @@
-name: "Release AUR package"
+name: "Release Snap package"
 
 on:
   release:
