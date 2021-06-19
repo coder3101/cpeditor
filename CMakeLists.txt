@@ -4,7 +4,7 @@ if(APPLE)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version")
 endif()
 
-project(cpeditor LANGUAGES CXX VERSION 6.9.0)
+project(cpeditor LANGUAGES CXX VERSION 6.10.0)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -116,6 +116,11 @@ if(USE_CLANG_TIDY)
 	message(STATUS "clang-tidy checks will be performed")
 endif()
 
+set(RESOURCES resources/resources.qrc)
+if(APPLE)
+  list(APPEND RESOURCES resources/macos-resources.qrc)
+endif()
+
 add_executable(cpeditor
     ${GUI_TYPE}
 
@@ -220,6 +225,8 @@ add_executable(cpeditor
     src/appwindow.hpp
     src/mainwindow.cpp
     src/mainwindow.hpp
+    src/application.cpp
+    src/application.hpp
 
     src/SignalHandler.cpp
     src/SignalHandler.hpp
@@ -235,7 +242,7 @@ add_executable(cpeditor
     ${CMAKE_BINARY_DIR}/generated/SettingsInfo.cpp
 
     ${CMAKE_BINARY_DIR}/translations/translations.qrc
-    resources/resources.qrc
+    ${RESOURCES}
     assets/appicon.rc)
 
 include_directories("generated/")
