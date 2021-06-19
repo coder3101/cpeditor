@@ -1,16 +1,15 @@
 name: "Update Snap"
 
-on: [pull_request]
-# on:
-#   push:
-#     branches:
-#       - master
-#     paths-ignore:
-#       - ".github/**"
-#       - "!.github/workflows/push_aur.yml"
-#       - "**.md"
-#       - ".all-contributorsrc"
-#       - ".gitignore"
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - ".github/**"
+      - "!.github/workflows/push_aur.yml"
+      - "**.md"
+      - ".all-contributorsrc"
+      - ".gitignore"
 
 jobs:
   snap:
@@ -35,14 +34,12 @@ jobs:
       - name: Update Snapcraft
         run: |
           cp dist/snap/snapcraft.yaml snapcraft.yaml
-          sed -i "/source-/d" snapcraft.yaml
-          sed -i "s/source: https.*/source: \."/g snapcraft.yaml
 
       - uses: snapcore/action-build@v1
         id: build
 
-#       - uses: snapcore/action-publish@v1
-#         with:
-#           store_login: ${{ secrets.STORE_LOGIN }}
-#           snap: ${{ steps.build.outputs.snap }}
-#           release: edge
+      - uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.STORE_LOGIN }}
+          snap: ${{ steps.build.outputs.snap }}
+          release: edge

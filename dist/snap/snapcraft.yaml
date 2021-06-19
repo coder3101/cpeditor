@@ -29,9 +29,7 @@ parts:
       - libgl1-mesa-dev
     stage-packages:
       - qt515base
-    source: https://github.com/cpeditor/cpeditor
-    source-type: git
-    source-branch: master
+    source: .
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
