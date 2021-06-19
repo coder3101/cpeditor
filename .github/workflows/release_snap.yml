@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Fetch release and prepare
-        if: steps.get_version.outputs.ISSTABLE == 'true'
+        # if: steps.get_version.outputs.ISSTABLE == 'true'
         run: |
           wget -c https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/cpeditor-${{ steps.get_version.outputs.version }}-full-source.tar.gz
           cd cpeditor
