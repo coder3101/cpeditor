@@ -31,7 +31,7 @@ jobs:
           git fetch --tags
           SNAP_VERSION=$(git describe --long --tags --abbrev=8 | sed 's/-/./g' | cut -d '.' -f 1-4)
           echo ::set-output name=SNAP_VERSION::$SNAP_VERSION
-          sed -i "s/project(cpeditor LANGUAGES CXX VERSION .*/a set(SNAP_VERSION $SNAP_VERSION)" CMakeLists.txt
+          sed -i "/project(cpeditor LANGUAGES CXX VERSION .*/a set(SNAP_VERSION $SNAP_VERSION)" CMakeLists.txt
 
       - name: Update Snapcraft
         run: |
