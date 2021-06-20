@@ -16,7 +16,6 @@ jobs:
     name: "Update Snap"
     runs-on: ubuntu-latest
     if: github.repository_owner == 'cpeditor'
-
     steps:
       - uses: actions/checkout@v2
         with:
