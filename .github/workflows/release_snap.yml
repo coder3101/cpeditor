@@ -45,6 +45,8 @@ jobs:
       
       - uses: snapcore/action-build@v1
         id: build
+        with:
+          path: cpeditor-${{ steps.get_version.outputs.version }}-full-source
 
       - uses: snapcore/action-publish@v1
         with:
